@@ -43,6 +43,7 @@ var getJasmineRequireObj = (function(jasmineGlobal) {
         ) {
             jasmineGlobal = window;
         }
+        jasmineGlobal = jasmineGlobal || window;
         jasmineRequire = jasmineGlobal.jasmineRequire = {};
     }
 
