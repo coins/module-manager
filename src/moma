@@ -1,80 +1,98 @@
 #!/bin/bash
 
-# Verify that we're in the root directory
-ROOT_FILE="`pwd`/.gitmodules";
-if [ ! -f "$ROOT_FILE" ]; 
-then
-    echo "Error: Go to root directory"
-	exit 1
-fi
-
-# Verify inputs
-if [ -z "$1" ]
-then
-    echo "Error: Enter a package name"
-    exit 1
-fi
-
-if [ -z "$2" ]
-then
-    echo "Error: Enter a package description"
-    exit 1
-fi
-
 GITHUB_ORGANIZATION="coins"
 
 TITLE="$1"
 TITLE_SHORT="${TITLE/\-js/}"
 DESCRIPTION="$2"
 
-MY_PATH="$(dirname "$(readlink "$0")")"
-TEMPLATE_PATH="$MY_PATH/src/template"
+
+# Verify that we're in the root directory
+ROOT_FILE="`pwd`/.gitmodules";
+if [ ! -f "$ROOT_FILE" ]; 
+then
+    echo "Error: Go to the root directory"
+	exit 1
+fi
+
+# Verify inputs
+if [ -z "$TITLE" ]
+then
+    echo "Error: Enter a module name"
+    exit 1
+fi
+
+if [ -z "$DESCRIPTION" ]
+then
+    echo "Error: Enter a module description"
+    exit 1
+fi
 
 # Create Directory
-if [ ! -f "$TITLE" ]; 
+if [ -d "$TITLE" ]; 
 then
     echo "Error: Module $TITLE already exists"
 	exit 1
 fi
 
+# Create directory
 mkdir $TITLE
+
+# Template path
+SCRIPT_PATH="$(dirname "$(readlink "$0")")"
+TEMPLATE_PATH="$SCRIPT_PATH/src/template"
+
+# Copy templates
+cp -R "$TEMPLATE_PATH/." $TITLE
+
+# Move into directory
 cd $TITLE
 
-mkdir src
-mkdir dist
+# Process player-spec.js template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/player-spec.js"
+rm src/spec/player-spec.jse
 
-# Process README Template
-sed -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "$TEMPLATE_PATH/README.md" > src/README.md
+# Process player-spec.js template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/index.html"
+rm src/spec/index.htmle
 
-# Create symlink for README 
+# Process README template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/README.md"
+rm src/README.mde
+
+# Create symlink for README in root directory
 ln -s src/README.md README.md
 
-# Standard File
-touch "src/$TITLE_SHORT.js"
-cp $TEMPLATE_PATH src 
+
+# Rename Templates
+mv src/index.js "src/$TITLE_SHORT.js"
+mv src/spec/player-spec.js "src/spec/$TITLE_SHORT-spec.js"
 
 
 
-# # Initial commit
-# git init
-# git add -A
-# git commit -m "Package initialization"
+# Initial commit
+git init
+git add -A
+git commit -m "Module initialization"
 
-# # Create Repository in Github
-# hub create $GITHUB_ORGANIZATION/$1 --description="$2"
+# Create Repository in Github
+hub create $GITHUB_ORGANIZATION/$TITLE --description="$DESCRIPTION" --homepage="https://$GITHUB_ORGANIZATION.github.io/$TITLE/src/spec/"
 
-# git push -u origin HEAD
+git push -u origin HEAD
 
-# git push origin master
+git push origin master
 
-# # Go to root directory and commit the new submodule
-# cd ..
+# Go to root directory and commit the new submodule
+cd ../
 
-# git submodule add ../$1.git $1
-# git submodule init 
+git submodule add ../$TITLE.git $TITLE
+git submodule init 
 
-# git add -A
-# git commit -m "Adding new package $1"
-# git push
+git add -A
+git commit -m "Adding new module $TITLE"
+git push
 
-# cd $1
+cd $TITLE
+
+
+

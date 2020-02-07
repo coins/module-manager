@@ -1,30 +1,33 @@
-export function Player() {}
+export class Player {
 
-Player.prototype.play = function(song) {
-    this.currentlyPlayingSong = song;
-    this.isPlaying = true;
-};
-
-Player.prototype.pause = function() {
-    this.isPlaying = false;
-};
-
-Player.prototype.resume = function() {
-    if (this.isPlaying) {
-        throw new Error("song is already playing");
+    play(song) {
+        this.currentlyPlayingSong = song;
+        this.isPlaying = true;
     }
 
-    this.isPlaying = true;
-};
+    pause() {
+        this.isPlaying = false;
+    }
 
-Player.prototype.makeFavorite = function() {
-    this.currentlyPlayingSong.persistFavoriteStatus(true);
-};
+    resume() {
+        if (this.isPlaying) {
+            throw new Error("song is already playing");
+        }
 
+        this.isPlaying = true;
+    }
 
-export function Song() {}
+    makeFavorite() {
+        this.currentlyPlayingSong.persistFavoriteStatus(true);
+    }
 
-Song.prototype.persistFavoriteStatus = function(value) {
-    // something complicated
-    throw new Error("not yet implemented");
-};
+}
+
+export class Song {
+
+    persistFavoriteStatus(value) {
+        // something complicated
+        throw new Error("not yet implemented");
+    }
+
+}

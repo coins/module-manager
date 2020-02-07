@@ -7,8 +7,8 @@
 
  [jasmine-gem]: http://github.com/pivotal/jasmine-gem
  */
-import {} from './jasmine.js'
-import {} from './jasmine-html.js'
+import './jasmine.js'
+import './jasmine-html.js'
 
 (function() {
 
