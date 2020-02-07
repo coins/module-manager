@@ -1,5 +1,5 @@
 # Modules Manager
-Installation-free ES6 modules manager based on Github.
+Installation-free ES6 modules manager based on Github and Jasmine.
 
 ## Publisher Setup
 Publishing modules requires [Github's hub](https://hub.github.com/). Users of modules require no setup. 
@@ -13,3 +13,4 @@ ln -s "`pwd`/moma" /usr/local/bin/moma
 ```
 moma <name> <description>
 ```
+
