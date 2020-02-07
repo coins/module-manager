@@ -1,9 +1,5 @@
 #!/bin/bash
 
-# Dependency: brew install hub
-
-ORGANIZATION="coins"
-
 # Verify that we're in the root directory
 ROOT_FILE="`pwd`/.gitmodules";
 if [ ! -f "$ROOT_FILE" ]; 
@@ -25,44 +21,60 @@ then
     exit 1
 fi
 
+GITHUB_ORGANIZATION="coins"
+
+TITLE="$1"
+TITLE_SHORT="${TITLE/\-js/}"
+DESCRIPTION="$2"
+
+MY_PATH="$(dirname "$(readlink "$0")")"
+TEMPLATE_PATH="$MY_PATH/src/template"
 
 # Create Directory
-mkdir $1
-cd $1
+if [ ! -f "$TITLE" ]; 
+then
+    echo "Error: Module $TITLE already exists"
+	exit 1
+fi
+
+mkdir $TITLE
+cd $TITLE
 
 mkdir src
 mkdir dist
 
-# Readme Template
-cat << EOF
-# $1
-$2
-EOF
-> src/README.md
+# Process README Template
+sed -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "$TEMPLATE_PATH/README.md" > src/README.md
 
-# Readme symlink 
-ln -s src/README.md README.md 
+# Create symlink for README 
+ln -s src/README.md README.md
 
-# Initial commit
-git init
-git add -A
-git commit -m "Package initialization"
+# Standard File
+touch "src/$TITLE_SHORT.js"
+cp $TEMPLATE_PATH src 
 
-# Create Repository in Github
-hub create $ORGANIZATION/$1 --description="$2"
 
-git push -u origin HEAD
 
-git push origin master
+# # Initial commit
+# git init
+# git add -A
+# git commit -m "Package initialization"
 
-# Go to root directory and commit the new submodule
-cd ..
+# # Create Repository in Github
+# hub create $GITHUB_ORGANIZATION/$1 --description="$2"
 
-git submodule add ../$1.git $1
-git submodule init 
+# git push -u origin HEAD
 
-git add -A
-git commit -m "Adding new package $1"
-git push
+# git push origin master
 
-cd $1
+# # Go to root directory and commit the new submodule
+# cd ..
+
+# git submodule add ../$1.git $1
+# git submodule init 
+
+# git add -A
+# git commit -m "Adding new package $1"
+# git push
+
+# cd $1
