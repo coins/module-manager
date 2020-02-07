@@ -34,7 +34,7 @@ mkdir src
 mkdir dist
 
 # Readme Template
-cat  << EOF
+cat << EOF
 # $1
 $2
 EOF
@@ -64,3 +64,5 @@ git submodule init
 git add -A
 git commit -m "Adding new package $1"
 git push
+
+cd $1
