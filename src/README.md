@@ -37,16 +37,16 @@ The only requirement is that the server sends `access-control-allow-origin: *` H
 /root
 	/src
 		/spec
-	/dist
+	/version
 		/0.1/
 			<copy of src at some point in time>
 		/0.2/
 			<copy of src at some point in time>
 		...
 ```
-Code changes happens only in the `src` folder. Versions are published by copying the full source folder to the dist folder.
-Directories in `dist` may never change once they are published. The integrity of versions is based on the files' hashes.
+Code changes happens only in the `src` folder. Versions are published by copying the full source folder to the `version` folder.
+Directories in `version` may never change once they are published. The integrity of versions is based on the files' hashes.
 The security model is: 
-> Adding folders to `dist` is allowed, but changing an existing version is an attack on the module's users.
+> Adding folders to `version` is allowed, but changing an existing version is an attack on the module's users.
 
-It also means, clients can cache any file in dist forever.
+It also means, clients can cache any file in `version` forever.
