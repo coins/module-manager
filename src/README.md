@@ -43,6 +43,6 @@ The only requirement is that the server sends `access-control-allow-origin: *` H
 		...
 ```
 Code changes happens only in the `src` folder. Versions are published by copying the full source folder to the dist folder.
-Directories in `dist` may never change once they are published. The integrity of sources is based on the files' hashes.
+Directories in `dist` may never change once they are published. The integrity of versions is based on the files' hashes.
 The security model is: 
-> Adding folders to `dist` is allowed, but changing an existing folder is an attack on the module's users.
+> Adding folders to `dist` is allowed, but changing an existing version is an attack on the module's users.
