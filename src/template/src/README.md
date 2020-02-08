@@ -3,10 +3,10 @@
 
 ## Usage 
 
-```
-{{title_short}} = (await import('//coins.github.io/{{title}}/src/{{title_short}}.js')).{{title_short}};
+```javascript
+{ {{title_short}} } = await import('https://coins.github.io/{{title}}/{{title_short}}.js');
 // Do something...
-await {{title_short}}( new Uint8Array([1,2,3]) )
+await {{title_short}}( data )
 ```
 
 ## Development 
