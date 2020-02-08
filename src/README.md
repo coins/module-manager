@@ -4,7 +4,7 @@ Installation-free ES6 module manager and CDN. The *users* of modules require no 
 Even module *developers* require nothing but git. No npm, no dependencies. Only module *publishers* require a dependency. 
 
 - Native ES6 module imports
-- Git as package manager
+- Git as version manager
 - Github pages used as CDN
 - Testing with the Jasmine Standalone Framework (in browser and with TravisCLI)
 - Documentation and type checking via JSDocs
@@ -42,7 +42,7 @@ The only requirement is that the server sends `access-control-allow-origin: *` H
 			<copy of src at some point in time>
 		...
 ```
-
+Code changes happens only in the `src` folder. Versions are published by copying the full source folder to the dist folder.
 Directories in `dist` may never change once they are published. The integrity of sources is based on the files' hashes.
 The security model is: 
-> Adding folders to `dist` is allowed, but changing an existing folder is an attack on the library's users.
+> Adding folders to `dist` is allowed, but changing an existing folder is an attack on the module's users.
