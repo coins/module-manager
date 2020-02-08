@@ -43,5 +43,6 @@ The only requirement is that the server sends `access-control-allow-origin: *` H
 		...
 ```
 
-Directories in `dist` may never change once they are published. The integrity of sources is based on the files hashes.
-The security model is: "Adding another folder to `dist` is fine, but changing an existing folder is an attack on the library users".
+Directories in `dist` may never change once they are published. The integrity of sources is based on the files' hashes.
+The security model is: 
+> Adding folders to `dist` is allowed, but changing an existing folder is an attack on the library's users.
