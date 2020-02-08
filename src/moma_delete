@@ -1,0 +1,62 @@
+#!/bin/bash
+set -e # Exit with nonzero exit code if anything fails
+
+MODULE_NAME="$1"
+GITHUB_ORGANIZATION="$2"
+
+# Module name must not be empty
+if [[ -z $MODULE_NAME ]]; then
+  	echo "Error: no module name"
+	exit 1
+fi
+
+# No dots allowed in module name!
+if [[ "$MODULE_NAME" == *"."* ]]; then 
+  	echo "Error: malicious module name!"
+	exit 1
+fi
+
+# No slashes allowed in module name!
+if [[ "$MODULE_NAME" == *"/"* ]]; then 
+  	echo "Error: malicious module name!"
+	exit 1
+fi
+
+MODULE_FOLDER="$MODULE_NAME"
+
+if [ ! -d "$MODULE_FOLDER" ]; 
+then
+    echo "Module $MODULE_NAME does not exist"
+	exit 1
+fi
+
+# read -p "Are you sure you want to delete the $MODULE_NAME [Y/n]? " -n 1 -r
+# echo    # (optional) move to a new line
+# if [[ ! $REPLY =~ ^[Y]$ ]]
+# then
+# 	echo "Canceled"
+#     exit 1
+# fi
+
+#
+#
+#	DANGEROUS PART BEGINS HERE 
+#
+#
+
+hub delete "$GITHUB_ORGANIZATION/$MODULE_NAME"
+git submodule deinit $MODULE_FOLDER
+git rm $MODULE_FOLDER
+rm -rf .git/modules/$MODULE_FOLDER
+rm -rf $MODULE_FOLDER
+
+git add -A
+git commit -m "Delete submodule $MODULE_NAME"
+echo "$MODULE_NAME deleted"
+
+
+
+# rm -rf MODULE_FOLDER
+
+# echo $MODULE_NAME 
+# MODULE_NAME_SHORT="${MODULE_NAME/\-js/}"

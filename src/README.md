@@ -1,15 +1,15 @@
-# Modules Manager
+# Module Manager
 Installation-free ES6 module manager and CDN. The *users* of modules require no setup. Just copy paste an ES6 import and you're good. 
 
-Even module *developers* require nothing but git. No npm, no dependencies. Only module *publishers* require a dependency. 
+Even module *developers* require nothing but git. No npm, no dependencies. Only module *publishers* require a dependency, and only if they do not want to create Github repositories by hand. 
 
 - Native ES6 module imports
 - Git as version manager
 - Github pages used as CDN
 - Testing with the Jasmine Standalone Framework (in browser and with TravisCLI)
 - Documentation and type checking via JSDocs
-- TODO: Compatibility with npm
 - TODO: Resource integrity verification with CSP
+- TODO: Compatibility with npm
 
 
 ## Publisher Setup
@@ -17,8 +17,10 @@ Publishing a module requires [Github's hub](https://hub.github.com/).
 
 ```
 brew install hub
-ln -s "`pwd`/moma" /usr/local/bin/moma
+ln -s "`pwd`/src/moma" /usr/local/bin/moma
 ```
+
+To delete modules you have to [grant your Github token access](https://github.com/settings/tokens) here.
 
 ## Publish Module
 ```
@@ -46,3 +48,5 @@ Code changes happens only in the `src` folder. Versions are published by copying
 Directories in `dist` may never change once they are published. The integrity of versions is based on the files' hashes.
 The security model is: 
 > Adding folders to `dist` is allowed, but changing an existing version is an attack on the module's users.
+
+It also means, clients can cache any file in dist forever.

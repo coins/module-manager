@@ -3,97 +3,15 @@ set -e # Exit with nonzero exit code if anything fails
 
 GITHUB_ORGANIZATION="coins"
 
-TITLE="$1"
-TITLE_SHORT="${TITLE/\-js/}"
-DESCRIPTION="$2"
+SCRIPT_PATH="$(dirname "$(readlink "$0")")/"
 
 
-# Verify that we're in the root directory
-ROOT_FILE="`pwd`/.gitmodules";
-if [ ! -f "$ROOT_FILE" ]; 
-then
-    echo "Error: Go to the root directory"
-	exit 1
-fi
-
-# Verify inputs
-if [ -z "$TITLE" ]
-then
-    echo "Error: Enter a module name"
-    exit 1
-fi
-
-if [ -z "$DESCRIPTION" ]
-then
-    echo "Error: Enter a module description"
-    exit 1
-fi
-
-# Create Directory
-if [ -d "$TITLE" ]; 
-then
-    echo "Error: Module $TITLE already exists"
-	exit 1
-fi
-
-# Create directory
-mkdir $TITLE
-
-# Template path
-SCRIPT_PATH="$(dirname "$(readlink "$0")")"
-TEMPLATE_PATH="$SCRIPT_PATH/src/template"
-
-# Copy templates
-cp -R "$TEMPLATE_PATH/." $TITLE
-
-# Move into directory
-cd $TITLE
-
-# Process player-spec.js template
-sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/player-spec.js"
-rm src/spec/player-spec.jse
-
-# Process player-spec.js template
-sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/index.html"
-rm src/spec/index.htmle
-
-# Process README template
-sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/README.md"
-rm src/README.mde
-
-# Create symlink for README in root directory
-ln -s src/README.md README.md
-
-
-# Rename Templates
-mv src/index.js "src/$TITLE_SHORT.js"
-mv src/spec/player-spec.js "src/spec/$TITLE_SHORT-spec.js"
-
-
-
-# Initial commit
-git init
-git add -A
-git commit -m "Module initialization"
-
-# Create Repository in Github
-hub create $GITHUB_ORGANIZATION/$TITLE --description="$DESCRIPTION" --homepage="https://$GITHUB_ORGANIZATION.github.io/$TITLE/src/spec/"
-
-git push -u origin HEAD
-
-git push origin master
-
-# Go to root directory and commit the new submodule
-cd ../
-
-git submodule add ../$TITLE.git $TITLE
-git submodule init 
-
-git add -A
-git commit -m "Adding new module $TITLE"
-git push
-
-cd $TITLE
-
+COMMAND="$1"
+case $COMMAND in
+    "create" )
+        /bin/bash "$SCRIPT_PATH/moma_create" "$2" "$3" "$GITHUB_ORGANIZATION" ;;
+    "delete" )
+        /bin/bash "$SCRIPT_PATH/moma_delete" "$2" "$GITHUB_ORGANIZATION" ;;
+esac
 
 
