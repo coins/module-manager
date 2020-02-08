@@ -33,20 +33,24 @@ The only requirement is that the server sends `access-control-allow-origin: *` H
 
 
 ## Directory Template
+The directory includes all versions. A simple version scheme i.e. `2.0` is used. Increasing the decimal means all interfaces stay compatible.
+
 ```
 /root
+	/0.1
+		<copy of src at some point in time>
+	/0.2
+		<copy of src at some point in time>
+	/0.3
+	...
+	/head
+		<copy of src at some point in time>
 	/src
 		/spec
-	/version
-		/0.1/
-			<copy of src at some point in time>
-		/0.2/
-			<copy of src at some point in time>
-		...
 ```
-Code changes happens only in the `src` folder. Versions are published by copying the full source folder to the `version` folder.
-Directories in `version` may never change once they are published. The integrity of versions is based on the files' hashes.
+
+Code changes are allowed only in the `src` folder. New versions are published by copying the full source folder to a version folder. Version folders may never change once they are published. The integrity of a version is based on its files' hashes.
 The security model is: 
 > Adding folders to `version` is allowed, but changing an existing version is an attack on the module's users.
 
-It also means, clients can cache any file in `version` forever.
+It also means, clients can cache any file in any version folder forever.
