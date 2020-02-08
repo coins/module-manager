@@ -45,9 +45,9 @@ fi
 #
 
 hub delete "$GITHUB_ORGANIZATION/$MODULE_NAME"
+
 git submodule deinit $MODULE_FOLDER
-git rm $MODULE_FOLDER
-rm -rf .git/modules/$MODULE_FOLDER
+git rm --cached $MODULE_FOLDER
 rm -rf $MODULE_FOLDER
 
 git add -A

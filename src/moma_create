@@ -8,15 +8,6 @@ GITHUB_ORGANIZATION="$3"
 
 SCRIPT_PATH="$( cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P )"
 
-
-# Verify that we're in the root directory
-ROOT_FILE="`pwd`/.gitmodules";
-if [ ! -f "$ROOT_FILE" ]; 
-then
-    echo "Error: Go to the root directory"
-	exit 1
-fi
-
 # Verify inputs
 if [ -z "$TITLE" ]
 then

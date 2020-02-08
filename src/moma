@@ -1,6 +1,15 @@
 #!/bin/bash
 set -e # Exit with nonzero exit code if anything fails
 
+# Verify that we're in the root directory
+ROOT_FILE="`pwd`/.gitmodules";
+if [ ! -f "$ROOT_FILE" ]; 
+then
+    echo "Error: Go to the root directory"
+	exit 1
+fi
+
+
 GITHUB_ORGANIZATION="coins"
 
 SCRIPT_PATH="$(dirname "$(readlink "$0")")/"
