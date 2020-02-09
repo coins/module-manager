@@ -7,7 +7,7 @@ Even module *developers* require nothing but git. No npm, no dependencies. Only 
 - Git as version manager
 - Github pages used as CDN
 - Testing with the Jasmine Standalone Framework (in browser and with TravisCLI)
-- Documentation and type checking via JSDocs
+- Documentation via JSDocs ([and type checking](https://medium.com/@trukrs/type-safe-javascript-with-jsdoc-7a2a63209b76) )
 - TODO: Resource integrity verification with CSP
 - TODO: Compatibility with npm
 
