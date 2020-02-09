@@ -12,6 +12,15 @@ Even module *developers* require nothing but git. No npm, no dependencies. Only 
 - TODO: Compatibility with npm
 
 
+## Philosophy 
+The goal is trustworthy code. The tool is simplicity. The role model is the [Unix philosophy](https://en.wikipedia.org/wiki/Unix_philosophy): "A set of cultural norms and philosophical approaches to minimalist, modular software development.".
+The Unix philosophy favors composability as opposed to monolithic design.
+
+### Core Values
+- Auditability 
+	- Simplicity
+	- Tool chain reduction
+
 ## Publisher Setup
 Publishing a module requires [Github's hub](https://hub.github.com/).  
 
