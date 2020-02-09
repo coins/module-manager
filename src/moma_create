@@ -61,8 +61,8 @@ ln -s src/README.md README.md
 mv src/index.js "src/$TITLE_SHORT.js"
 mv src/spec/player-spec.js "src/spec/$TITLE_SHORT-spec.js"
 
-# Create symlink for default version
-ln -s "src/$TITLE_SHORT.js" "$TITLE_SHORT.js"
+# Create root link into default version
+echo "export * from './src/$TITLE_SHORT.js'" > "$TITLE_SHORT.js"
 
 
 # Initial commit
