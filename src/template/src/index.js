@@ -1,33 +1,8 @@
-export class Player {
-
-    play(song) {
-        this.currentlyPlayingSong = song;
-        this.isPlaying = true;
-    }
-
-    pause() {
-        this.isPlaying = false;
-    }
-
-    resume() {
-        if (this.isPlaying) {
-            throw new Error("song is already playing");
-        }
-
-        this.isPlaying = true;
-    }
-
-    makeFavorite() {
-        this.currentlyPlayingSong.persistFavoriteStatus(true);
-    }
-
-}
-
-export class Song {
-
-    persistFavoriteStatus(value) {
-        // something complicated
-        throw new Error("not yet implemented");
-    }
-
+/**
+ * A description for {{title_short}}
+ * @param {string} myInput - Some input parameter.
+ * @return {Number} - A random test value.
+ */
+export function /*{{title_short}}*/(myInput) {
+    return 42
 }

@@ -41,13 +41,21 @@ cp -R "$TEMPLATE_PATH/." $TITLE
 # Move into directory
 cd $TITLE
 
-# Process player-spec.js template
-sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/player-spec.js"
-rm src/spec/player-spec.jse
+# Process test.js template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/\/\*{{title_short}}\*\//$TITLE_SHORT/g" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/test/test.js"
+rm src/test/test.jse
 
-# Process player-spec.js template
-sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/spec/index.html"
-rm src/spec/index.htmle
+# Process src/index.js template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/\/\*{{title_short}}\*\//$TITLE_SHORT/g" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/index.js"
+rm src/index.jse
+
+# Process index.js template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/\/\*{{title_short}}\*\//$TITLE_SHORT/g" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./index.js"
+rm index.jse
+
+# Process index.html template
+sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/test/index.html"
+rm src/test/index.htmle
 
 # Process README template
 sed -ie -e "s/{{title}}/$TITLE/" -e "s/{{title_short}}/$TITLE_SHORT/g" -e "s/{{description}}/$DESCRIPTION/" "./src/README.md"
@@ -59,10 +67,15 @@ ln -s src/README.md README.md
 
 # Rename Templates
 mv src/index.js "src/$TITLE_SHORT.js"
-mv src/spec/player-spec.js "src/spec/$TITLE_SHORT-spec.js"
+mv index.js "$TITLE_SHORT.js"
+# mv src/test/test.js "src/test/$TITLE_SHORT-spec.js"
 
 # Create root link into default version
-echo "export * from './src/$TITLE_SHORT.js'" > "$TITLE_SHORT.js"
+
+
+#
+# Add to GIT repository
+#
 
 
 # Initial commit
@@ -71,7 +84,7 @@ git add -A
 git commit -m "Module initialization"
 
 # Create Repository in Github
-hub create $GITHUB_ORGANIZATION/$TITLE --description="$DESCRIPTION" --homepage="https://$GITHUB_ORGANIZATION.github.io/$TITLE/src/spec/"
+hub create $GITHUB_ORGANIZATION/$TITLE --description="$DESCRIPTION" --homepage="https://$GITHUB_ORGANIZATION.github.io/$TITLE/src/test/"
 
 git push -u origin HEAD
 
