@@ -1,7 +1,6 @@
 import './jasmine-3.5.0/boot.js';
 
 // include source files here... 
-import './spec-helper.js';
 import { Player, Song } from '../{{title_short}}.js';
 
 describe('{{title_short}}', function() {
@@ -50,16 +49,6 @@ describe('{{title_short}}', function() {
             expect(player.isPlaying).toBeTruthy();
             expect(player.currentlyPlayingSong).toEqual(song);
         });
-    });
-
-    // demonstrates use of spies to intercept and test method calls
-    it('tells the current song if the user has made it a favorite', function() {
-        spyOn(song, 'persistFavoriteStatus');
-
-        player.play(song);
-        player.makeFavorite();
-
-        expect(song.persistFavoriteStatus).toHaveBeenCalledWith(true);
     });
 
 });

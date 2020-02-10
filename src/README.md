@@ -21,6 +21,9 @@ The Unix philosophy favors composability as opposed to monolithic design.
 	- Simplicity
 	- Tool chain reduction
 
+### Tooling philosophy
+All tools should be "augmentations" instead of dependencies. A library *developer* should not notice if a tool is missing until he actually wants to use it. Library *users* should never require any tools at all.
+
 ## Publisher Setup
 Publishing a module requires [Github's hub](https://hub.github.com/).  
 
