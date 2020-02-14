@@ -17,12 +17,17 @@ The goal is trustworthy code. The tool is simplicity. The role model is the [Uni
 The Unix philosophy favors composability as opposed to monolithic design.
 
 ### Core Values
-- Auditability 
+- Auditability 	
 	- Simplicity
 	- Tool chain reduction
 
 ### Tooling philosophy
 All tools should be "augmentations" instead of dependencies. A library *developer* should not notice if a tool is missing until he actually wants to use it. Library *users* should never require any tools at all.
+Our code should not be outdated as soon as some new frontend trend is hyped.
+
+
+### Code Style
+- [Google JavaScript Style Guide](https://google.github.io/styleguide/jsguide.html)
 
 ## Publisher Setup
 Publishing a module requires [Github's hub](https://hub.github.com/).  
